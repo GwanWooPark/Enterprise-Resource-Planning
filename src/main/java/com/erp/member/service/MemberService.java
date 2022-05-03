@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -19,5 +21,13 @@ public class MemberService {
 
         Member member = memberSingUpDto.toMember();
         memberRepository.save(member);
+    }
+
+
+    public Member findById(String id, String password) {
+
+        return Objects.requireNonNull(memberRepository.findById(id)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null)).toMember();
     }
 }

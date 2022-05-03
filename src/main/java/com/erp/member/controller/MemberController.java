@@ -2,6 +2,7 @@ package com.erp.member.controller;
 
 import com.erp.member.controller.dto.MemberSingUpDto;
 import com.erp.member.domain.Address;
+import com.erp.member.domain.Member;
 import com.erp.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,17 @@ public class MemberController {
         }
 
         memberService.save(memberSingUpDto);
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "member/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@Valid @ModelAttribute("member") Member member, BindingResult result) {
+
         return "redirect:/";
     }
 }
