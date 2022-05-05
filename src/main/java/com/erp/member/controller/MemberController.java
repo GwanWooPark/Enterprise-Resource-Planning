@@ -44,14 +44,4 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "member/login";
-    }
-
-    @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("member") Member member, BindingResult result) {
-
-        return "redirect:/";
-    }
 }
