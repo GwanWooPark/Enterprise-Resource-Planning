@@ -28,6 +28,6 @@ public class MemberService {
 
         return Objects.requireNonNull(memberRepository.findById(id)
                 .filter(m -> m.getPassword().equals(password))
-                .orElse(null)).toMember();
+                .orElse(null));
     }
 }

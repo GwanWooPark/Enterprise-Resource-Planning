@@ -27,14 +27,10 @@ public class MemberController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@Valid @ModelAttribute("member") MemberSingUpDto memberSingUpDto, BindingResult bindingResult,
-                         @RequestParam(name = "address.postcode") String postcode,
-                         @RequestParam(name = "address.address") String address,
-                         @RequestParam(name = "address.detailAddress") String detailAddress,
-                         @RequestParam(name = "address.extraAddress") String extraAddress) {
+    public String signUp(@Valid @ModelAttribute("member") MemberSingUpDto memberSingUpDto,
+                         BindingResult bindingResult) {
 
-        memberSingUpDto.setAddress(new Address(postcode, address, detailAddress, extraAddress));
-
+        log.info("address = {}", memberSingUpDto.getAddress().getPostcode());
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             return "member/signUp";

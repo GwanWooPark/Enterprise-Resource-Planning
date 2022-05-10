@@ -5,6 +5,7 @@ import com.erp.member.domain.Member;
 import com.erp.member.domain.Role;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Embedded;
 import javax.validation.Valid;
