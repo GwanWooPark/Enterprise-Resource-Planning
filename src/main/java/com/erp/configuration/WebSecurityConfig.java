@@ -1,5 +1,7 @@
 package com.erp.configuration;
 
+import com.erp.security.handler.FormAuthenticationFailureHandler;
+import com.erp.security.handler.FormAuthenticationSuccessHandler;
 import com.erp.security.provider.FormAuthenticationProvider;
 import com.erp.security.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public FormAuthenticationSuccessHandler formAuthenticationSuccessHandler() {
+        return new FormAuthenticationSuccessHandler();
+    }
+    @Bean
+    public FormAuthenticationFailureHandler formAuthenticationFailureHandler() {
+        return new FormAuthenticationFailureHandler();
+    }
+    @Bean
     public AuthenticationProvider authenticationProvider() {
         return new FormAuthenticationProvider(userDetailsService, passwordEncoder());
     }
@@ -62,6 +72,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .successHandler(formAuthenticationSuccessHandler())
+                .failureHandler(formAuthenticationFailureHandler())
                 .permitAll()
                 ;
 

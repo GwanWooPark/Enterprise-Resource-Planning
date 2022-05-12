@@ -20,13 +20,11 @@ public class Member extends BaseTimeEntity {
     @Column(name = "MEMBER_NO")
     private Long no;
 
-    private String id;
-
+    private String email;
     private String password;
 
     private String name;
 
-    private String email;
     private String phone;
 
     @Embedded

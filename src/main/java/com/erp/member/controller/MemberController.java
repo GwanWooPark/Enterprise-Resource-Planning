@@ -2,11 +2,11 @@ package com.erp.member.controller;
 
 import com.erp.member.controller.dto.MemberSingUpDto;
 import com.erp.member.domain.Address;
-import com.erp.member.domain.Member;
 import com.erp.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +28,15 @@ public class MemberController {
 
     @PostMapping("/signUp")
     public String signUp(@Valid @ModelAttribute("member") MemberSingUpDto memberSingUpDto,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,
+                         Model model) {
 
-        log.info("address = {}", memberSingUpDto.getAddress().getPostcode());
         if (bindingResult.hasErrors()) {
-            log.info("errors = {}", bindingResult);
+            memberService.checkMembersSignUpRequestValidation(memberSingUpDto, model);
+            return "member/signUp";
+        }
+
+        if (!memberService.checkMembersSignUpRequestValidation(memberSingUpDto, model)) {
             return "member/signUp";
         }
 
@@ -40,4 +44,8 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/mypage")
+    public String myPage() {
+        return "member/mypage";
+    }
 }

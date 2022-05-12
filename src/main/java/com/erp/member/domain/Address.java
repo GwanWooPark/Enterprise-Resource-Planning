@@ -22,6 +22,5 @@ public class Address {
     @NotBlank(message = "상세주소를 입력해주세요.")
     private String detailAddress;
 
-    @NotBlank(message = "참고사항을 입력해주세요.")
     private String extraAddress;
 }

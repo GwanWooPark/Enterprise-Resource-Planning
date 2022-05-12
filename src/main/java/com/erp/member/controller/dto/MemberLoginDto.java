@@ -9,13 +9,13 @@ import lombok.Getter;
 public class MemberLoginDto {
 
     private Long no;
-    private String id;
+    private String email;
     private String password;
 
 
     public Member toMember() {
         return Member.builder()
-                .id(id)
+                .email(email)
                 .password(password)
                 .build();
     }

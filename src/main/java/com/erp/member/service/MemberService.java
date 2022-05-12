@@ -6,8 +6,13 @@ import com.erp.member.domain.Member;
 import com.erp.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -16,18 +21,24 @@ import java.util.Objects;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
+    private final PasswordEncoder passwordEncoder;
+    @Transactional
     public void save(MemberSingUpDto memberSingUpDto) {
 
-        Member member = memberSingUpDto.toMember();
+        Member member = memberSingUpDto.encodePassword(passwordEncoder).toMember();
         memberRepository.save(member);
     }
 
+    public boolean checkMembersSignUpRequestValidation(MemberSingUpDto memberSingUpDto, Model model) {
 
-    public Member findById(String id, String password) {
+        Map<String, String> errors = new HashMap<>();
+        if (memberRepository.existsByEmail(memberSingUpDto.getEmail())) {
+            errors.put("emailError", "true");
+        }
 
-        return Objects.requireNonNull(memberRepository.findById(id)
-                .filter(m -> m.getPassword().equals(password))
-                .orElse(null));
+        model.addAttribute("errors", errors);
+        return errors.isEmpty();
     }
+
+
 }
