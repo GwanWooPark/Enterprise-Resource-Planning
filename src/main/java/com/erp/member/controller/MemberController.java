@@ -2,9 +2,13 @@ package com.erp.member.controller;
 
 import com.erp.member.controller.dto.MemberSingUpDto;
 import com.erp.member.domain.Address;
+import com.erp.member.domain.Member;
 import com.erp.member.service.MemberService;
+import com.erp.security.service.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,7 +49,16 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String myPage() {
+    public String myPage(Authentication authentication) {
+
+
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        Member member = memberService.findByEmail(customUserDetails.getUsername());
+
         return "member/mypage";
     }
 }

@@ -6,6 +6,8 @@ import com.erp.member.domain.Member;
 import com.erp.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,5 +43,9 @@ public class MemberService {
         return errors.isEmpty();
     }
 
+    public Member findByEmail(String email) {
 
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new CredentialsExpiredException("다시 로그인해주세요"));
+        return member;
+    }
 }

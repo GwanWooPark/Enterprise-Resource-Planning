@@ -65,10 +65,10 @@ th:fragment="common_topbar">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
             </a>
         </li>
-        
+
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow" sec:authorize="isAuthenticated()">
-            <a class="nav-link dropdown-toggle" th:href="@{/mypage}" role="button"
+            <a class="nav-link dropdown-toggle" th:href="@{/member/mypage}" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">마이페이지</span>
             </a>
