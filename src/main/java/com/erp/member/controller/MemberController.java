@@ -49,7 +49,7 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String myPage(Authentication authentication) {
+    public String myPage(Authentication authentication, Model model) {
 
 
         if (authentication == null) {
@@ -58,6 +58,8 @@ public class MemberController {
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         Member member = memberService.findByEmail(customUserDetails.getUsername());
+
+        model.addAttribute("member", member);
 
         return "member/mypage";
     }

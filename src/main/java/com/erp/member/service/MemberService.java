@@ -45,7 +45,6 @@ public class MemberService {
 
     public Member findByEmail(String email) {
 
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new CredentialsExpiredException("다시 로그인해주세요"));
-        return member;
+        return memberRepository.findByEmail(email).orElseThrow(() -> new CredentialsExpiredException("다시 로그인해주세요"));
     }
 }
