@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 
 @Getter
 @Setter
-public class MemberSingUpDto {
+public class MemberRequestDto {
 
     @Email(message = "올바른 이메일 주소가 아닙니다.", regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     @NotBlank(message = "이메일을 입력해주세요.")
@@ -36,7 +36,7 @@ public class MemberSingUpDto {
     private Address address;
 
 
-    public MemberSingUpDto encodePassword(PasswordEncoder passwordEncoder) {
+    public MemberRequestDto encodePassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
         return this;
     }

@@ -18,7 +18,7 @@ public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_NO")
-    private Long no;
+    private Long id;
 
     private String email;
     private String password;

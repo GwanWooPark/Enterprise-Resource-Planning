@@ -23,7 +23,7 @@ public class Board extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOARD_NO")
-    private Long no;
+    private Long id;
     private String title;
 
     @Column(length = 1000)
