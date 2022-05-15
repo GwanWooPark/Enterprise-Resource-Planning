@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-script :: layout (~{::title}, ~{::content}, ~{::script})">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP 회원가입</title>
+</head>
+<body>
+<div th:fragment="content" class="col-lg-6 mx-auto">
+    <form th:action method="post" th:object="${member}">
+        <div class="form-group">
+            <label for="email" class="form-label font-weight-bold text-dark">이메일</label>
+            <input th:field="*{email}" class="form-control form-control-user" name="email" id="email" placeholder="이메일" type="email" >
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('email')}"></p>
+            <p th:if="${errors?.containsKey('emailError')}"  class="small text-danger mt-1 ml-3">이미 존재하는 회원의 이메일입니다.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label font-weight-bold text-dark">비밀번호</label>
+            <div class="mb-2 small">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
+            <input th:field="*{password}" class="form-control form-control-user" name="password" id="password" placeholder="비밀번호" type="password">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('password')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="form-label font-weight-bold text-dark">이름</label>
+            <input th:field="*{name}" class="form-control form-control-user" name="name" id="name" placeholder="이름" type="text" >
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('name')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="phone" class="form-label font-weight-bold text-dark">전화번호</label>
+            <input th:field="*{phone}" class="form-control form-control-user" name="phone" id="phone" placeholder="예) 010-1234-5678" type="text"
+                   pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13">
+            <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('phone')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="postcode" class="form-label font-weight-bold text-dark">주소</label><br/>
+            <input type="text"  class="form-control form-control-user" style="width:70%; height:100%; display: inline; box-sizing: border-box; outline:none;" th:field="*{address.postcode}" id="postcode" name="postcode" readonly>
+            <input type="button"  class="form-control form-control-user" style="margin-left: -1%; width: 29%;height:100%; display: inline; box-sizing: border-box; outline:none; border: none;" onclick="sample6_execDaumPostcode()" value="주소 찾기"/><br/>
+
+            <label for="address" class="form-label font-weight-bold text-dark"></label>
+            <input type="text" class="form-control form-control-user" placeholder="기본 주소를 입력해 주세요" th:field="*{address.address}" id="address" name="address" readonly><br/>
+
+
+            <label for="detailAddress" class="form-label font-weight-bold text-dark"></label>
+            <input type="text" class="form-control form-control-user" placeholder="나머지 주소를 입력해 주세요" th:field="*{address.detailAddress}" id="detailAddress" name="detailAddress">
+
+            <label for="extraAddress"></label>
+            <input type="text" class="form-control form-control-user" placeholder="참고항목" th:field="*{address.extraAddress}" id="extraAddress" name="extraAddress" readonly>
+
+            <p th:if="${#fields.hasErrors('address.postcode')}" th:errors="*{address.postcode}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('address.detailAddress')}"></p>
+            <p th:if="${#fields.hasErrors('address.address')}" th:errors="*{address.address}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('address.detailAddress')}"></p>
+            <p th:if="${#fields.hasErrors('address.detailAddress')}" th:errors="*{address.detailAddress}" class="small text-danger mt-1 ml-3" th:text="*{#fields.errors('address.detailAddress')}"></p>
+
+        </div>
+        <button type="submit" class="btn btn-primary btn-user btn-block mt-4">회원가입하기</button>
+    </form>
+</div>
+<script th:src="@{/js/phoneForm.js}"></script>
+<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+<script th:src="@{/js/addressAPI.js}"></script>
+</body>
+</html>

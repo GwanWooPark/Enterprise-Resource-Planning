@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-nonscript :: layout (~{::title}, ~{::content})">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+</head>
+<body>
+<div th:fragment="content" class="container-fluid">
+    <div class="row">
+        <table class="table" th:each="board : ${boards}">
+            <tr>
+                <th th:text="${board.id}"></th>
+                <td th:text="${board.title}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="row justify-content-end">
+        <a th:href="@{/board/save}">글 쓰기</a>
+    </div>
+</div>
+</body>
+</html>
