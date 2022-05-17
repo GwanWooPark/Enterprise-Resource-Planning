@@ -5,14 +5,35 @@
     <title>공지사항</title>
 </head>
 <body>
-<div th:fragment="content" class="container-fluid">
-    <div class="row">
-        <table class="table" th:each="board : ${boards}">
+<div th:fragment="content" class="container-fluid col-8">
+    <div class="row justify-content-center text-center">
+        <table class="table">
             <tr>
-                <th th:text="${board.id}"></th>
-                <td th:text="${board.title}"></td>
+                <th></th>
+                <th class="row-cols-4">제목</th>
+<!--                <th>작성자</th>-->
+                <th>작성 날짜</th>
+            </tr>
+            <tr th:if="${boards == null}">
+                <td colspan="3">----- 작성된 게시글이 없습니다 ----</td>
+            </tr>
+            <tr th:each="board : ${boards}" th:if="${boards != null}">
+                <td class="row-cols-4" th:text="${board.id}"></td>
+                <td><a th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.title}"></a></td>
+<!--                <td th:text="${board.member.name}"></td>-->
+                <td th:text="${board.getCreateDate()}"></td>
+<!--            <td th:text="${#dates.format(board.getCreateDate(), 'yyyy-MM-dd')}"></td>-->
             </tr>
         </table>
+        <nav style="text-align: center;">
+            <ul class="pagination justify-content-center align-items-center" th:with="start=${T(java.lang.Math).floor(boards.number/10) * 10 + 1},
+                   last=(${start + 9 < boards.totalPages ? start + 9 : boards.totalPages})">
+                <li th:each="page: ${#numbers.sequence(start, last)}"
+                    th:class="${page == boards.number + 1} ? 'active'">
+                    <a th:text="${page}" th:href="@{/board(page=${page - 1})}"></a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <div class="row justify-content-end">
         <a th:href="@{/board/save}">글 쓰기</a>

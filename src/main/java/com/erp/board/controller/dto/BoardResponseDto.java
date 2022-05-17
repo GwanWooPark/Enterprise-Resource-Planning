@@ -12,7 +12,7 @@ import java.util.Optional;
 @Getter
 public class BoardResponseDto {
 
-    private final Long no;
+    private final Long id;
     private final Member member;
     private final String title;
     private final String content;
@@ -22,13 +22,13 @@ public class BoardResponseDto {
 
 
     public BoardResponseDto(Board board) {
-        no = board.getId();
+        id = board.getId();
         member = board.getMember();
         title = board.getTitle();
         content = board.getContent();
         category = board.getCategory();
-        createDate = toStringDateTime(board.getCreatedTime());
-        modifiedDate = toStringDateTime(board.getLastModifiedDate());
+        createDate = toStringDateTime(board.getCreateDate());
+        modifiedDate = toStringDateTime(board.getModifyDate());
 
     }
 

@@ -21,6 +21,7 @@ public class BoardRequestDto {
                 .title(title)
                 .content(content)
                 .category(category)
+                .member(member)
                 .build();
     }
 }
