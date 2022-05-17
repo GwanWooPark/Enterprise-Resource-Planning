@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-nonscript :: layout (~{::title}, ~{::content})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="layout/base-nonscript :: layout (~{::title}, ~{::content})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="content" class="container-fluid">
+<div th:fragment="content" class="container-fluid col-8">
+    <div class="row">
+        <p th:value="${board.title}" id="title" th:text="${board.title}" class="form-control form-control-user"></p>
+    </div>
 
+    <div class="row justify-content-center text-center">
+        <textarea class="form-control form-control-user" readonly th:text="${board.content}" rows="20" style="resize: none"></textarea>
+    </div>
+\
+    <div class="row justify-content-end">
+        <a th:if="${board.member.id == #session.getId()}" th:href="@{/board/{id}/edit(id=${board.id})}" class="mr-2">수정</a>
+        <a th:if="${board.member.id == #session.getId()}" th:href="@{/board/{id}/delete(id=${board.id})}" class="mr-2">삭제</a>
+        <a th:href="@{/board}">목록</a>
+    </div>
+
+    <!-- 다음, 이전 글 -->
+    <div class="row">
+
+    </div>
 </div>
 </body>
 </html>

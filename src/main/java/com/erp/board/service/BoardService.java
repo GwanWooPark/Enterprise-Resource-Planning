@@ -6,19 +6,34 @@ import com.erp.board.domain.Board;
 import com.erp.board.domain.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import static org.springframework.data.domain.Sort.*;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<Board> findAll() {
-        return boardRepository.findAll(by(Order.desc("createdTime")));
+    public List<BoardResponseDto> findAll() {
+        List<Board> list = boardRepository.findAll(by(Order.desc("id")));
+        List<BoardResponseDto> boards = list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+        return boards;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BoardResponseDto> findAll(Pageable pageable) {
+        Page<BoardResponseDto> boards = boardRepository.findAll(pageable).map(BoardResponseDto::new);
+        return boards;
     }
 
     @Transactional(readOnly = true)

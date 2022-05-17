@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:fragment="content" class="col-lg-6 mx-auto">
-    <form th:action="@{/save}" th:object="${board}" method="post">
+    <form th:action="@{/board/save}" th:object="${board}" method="post">
         <div class="form-group">
             <label for="title" class="form-label font-weight-bold text-dark">제목</label>
                 <input type="text" class="form-control form-control-user" th:value="*{title}" id="title" name="title">
