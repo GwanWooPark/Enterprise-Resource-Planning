@@ -5,8 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="content" class="container-fluid">
-
+<div th:fragment="content" class="col-lg-6 mx-auto">
+    <form th:action="@{/board/{id}/edit(id=${board.id})}" th:object="${board}" method="post">
+        <div class="form-group">
+            <label for="title" class="form-label font-weight-bold text-dark">제목</label>
+            <input type="text" class="form-control form-control-user" th:value="*{title}" id="title" name="title">
+        </div>
+        <div class="form-group">
+            <label for="content" class="form-label font-weight-bold text-dark">내용</label>
+            <textarea class="form-control form-control-user" rows="20" style="resize: none" th:value="*{content}" th:text="${board.content}" id="content" name="content"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-user btn-block mt-4" value="등록">수정</button>
+    </form>
 </div>
 </body>
 </html>

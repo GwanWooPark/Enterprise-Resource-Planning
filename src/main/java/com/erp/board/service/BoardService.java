@@ -50,4 +50,18 @@ public class BoardService {
     public Long save(BoardRequestDto boardRequestDto) {
         return boardRepository.save(boardRequestDto.toBoard()).getId();
     }
+
+    @Transactional
+    public Long edit(BoardRequestDto boardRequestDto, Long boardId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+        board.update(boardRequestDto.getTitle(), boardRequestDto.getContent());
+
+        return boardId;
+    }
+
+    @Transactional
+    public void deleteById(Long boardId) {
+        boardRepository.deleteById(boardId);
+    }
 }
