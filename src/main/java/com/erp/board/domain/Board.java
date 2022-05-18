@@ -36,4 +36,9 @@ public class Board extends BaseTimeEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "MEMBER_NO")
     private Member member;
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

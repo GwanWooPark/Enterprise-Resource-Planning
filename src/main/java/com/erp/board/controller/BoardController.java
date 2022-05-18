@@ -33,7 +33,7 @@ public class BoardController {
     private final MemberService memberService;
 
     @GetMapping
-    public String boardList(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+    public String boardList(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
         Page<BoardResponseDto> boards = boardService.findAll(pageable);
         model.addAttribute("boards", boards);
@@ -72,9 +72,31 @@ public class BoardController {
             return "redirect:/login";
         }
 
-        BoardResponseDto boardResponseDto  = boardService.findById(boardId);
+        BoardResponseDto boardResponseDto = boardService.findById(boardId);
         model.addAttribute("board", boardResponseDto);
 
         return "board/edit_form";
     }
+
+    @PostMapping("/{boardId}/edit")
+    public String editBoard(BoardRequestDto boardRequestDto, @PathVariable Long boardId, Authentication  authentication) {
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+        boardService.edit(boardRequestDto, boardId);
+        return "redirect:/board/{boardId}";
+    }
+
+    @GetMapping("/{boardId}/delete")
+    public String deleteBoard(@PathVariable Long boardId, Authentication authentication) {
+
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+
+        boardService.deleteById(boardId);
+
+        return "redirect:/board";
+    }
+
 }
