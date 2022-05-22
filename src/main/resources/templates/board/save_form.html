@@ -11,6 +11,17 @@
             <label for="title" class="form-label font-weight-bold text-dark">제목</label>
                 <input type="text" class="form-control form-control-user" th:value="*{title}" id="title" name="title">
         </div>
+        <!-- 추후 디자인 radio 버튼으로 교체 -->
+        <div class="form-group">
+            <label for="category" class="form-label font-weight-bold text-dark"></label>
+            <select id="category" name="category" th:field="*{category}">
+                <!-- Enum 타입의 데이터들을 th:each에 T를 이용해서 값을 가지고 올 수 있다. -->
+                <option th:each="category : ${T(com.erp.board.domain.category.Category).values()}"
+                        th:value="${category}"
+                        th:text="${category.getKrDescription()}">
+                </option>
+            </select>
+        </div>
         <div class="form-group">
             <label for="content" class="form-label font-weight-bold text-dark">내용</label>
                 <textarea class="form-control form-control-user" rows="20" style="resize: none" th:value="*{content}" id="content" name="content"></textarea>

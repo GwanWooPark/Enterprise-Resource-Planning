@@ -7,6 +7,11 @@
 </head>
 <body>
 <div th:fragment="content" class="container-fluid col-8">
+
+    <div class="row">
+        <p class="font-weight-bold" th:text="${board.category.getKrDescription()}"></p>
+    </div>
+
     <div class="row">
         <p th:value="${board.title}" id="title" th:text="${board.title}" class="form-control form-control-user"></p>
     </div>

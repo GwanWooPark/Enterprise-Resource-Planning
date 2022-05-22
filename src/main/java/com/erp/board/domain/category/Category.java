@@ -2,9 +2,17 @@ package com.erp.board.domain.category;
 
 public enum Category {
 
-    CATEGORY_NOTICE("NOTICE"),
-    CATEGORY_NORMAL("NORMAL");
+    CATEGORY_NOTICE("공지사항"),
+    CATEGORY_NORMAL("일반");
 
-    Category(String category) {
+    private final String krDescription;
+
+
+    public String getKrDescription() {
+        return krDescription;
+    }
+
+    Category(String krDescription) {
+        this.krDescription = krDescription;
     }
 }
