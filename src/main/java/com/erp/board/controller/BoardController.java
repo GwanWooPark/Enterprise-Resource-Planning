@@ -4,6 +4,7 @@ package com.erp.board.controller;
 import com.erp.board.controller.dto.BoardRequestDto;
 import com.erp.board.controller.dto.BoardResponseDto;
 import com.erp.board.domain.Board;
+import com.erp.board.domain.category.Category;
 import com.erp.board.service.BoardService;
 import com.erp.member.domain.Member;
 import com.erp.member.service.MemberService;
